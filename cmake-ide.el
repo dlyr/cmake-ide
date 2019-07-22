@@ -749,6 +749,15 @@ the object file's name just above."
                                           "-B" "." "-S" project-dir))))))
 
 
+
+(defun cide--get-build-type ()
+  "Return build type : debug or release"
+  (interactive)
+  (let ((args cmake-ide-cmake-args))
+    (let* ((clean (delq nil (mapcar (function (lambda (x) (if (string-match-p "CMAKE_BUILD_TYPE" x) x 'nil))) args))))
+      clean)))
+
+
 (defun cide--project-key ()
   "Return a unique key for a project based on the project dir and cmake options."
   (let ((project-dir (cide--locate-project-dir)))
