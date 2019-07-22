@@ -296,7 +296,6 @@ the closest possible matches available in cppcheck."
 
 (defun cide--use-rtags()
     (and (featurep 'rtags) cmake-ide-use-rtags))
-    
 
 (defun cide--use-flycheck()
     (and (featurep 'flycheck) cmake-ide-use-flycheck))
