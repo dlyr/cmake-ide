@@ -39,6 +39,9 @@
 (require 'company-c-headers)
 (require 'flycheck)
 
+;; for use flycheck for tests
+(setq cmake-ide-use-flycheck 't
+)
 (defun equal-lists (lst1 lst2)
   "If LST1 is the same as LST2 regardless or ordering."
   (and (equal (length lst1) (length lst2))
@@ -653,9 +656,16 @@ company-c-headers to break."
     ;; since project-key depend on project-dir, two different dir must have different value
     (let ((dir2 (cide--project-key)))
       (should (not (equal dir1 dir2)))))
+  (setq cmake-ide-cmake-opts "")
   (let ((dir1 (cide--project-key)))
     (setq cmake-ide-cmake-opts "-DTest")
-    ;; since project-key depend on cmake-opts, two different dir must have different value
+    ;; since project-key ignore cmake-opts, two different opts return the same results
+    (let ((dir2 (cide--project-key)))
+      (should (equal dir1 dir2))))
+  (setq cmake-ide-cmake-opts "-DCMAKE_BUILD_TYPE=Release")
+  (let ((dir1 (cide--project-key)))
+    (setq cmake-ide-cmake-opts "-DCMAKE_BUILD_TYPE=Debug")
+    ;; except build type, where two different build type must return diffrent value
     (let ((dir2 (cide--project-key)))
       (should (not (equal dir1 dir2)))))
   )

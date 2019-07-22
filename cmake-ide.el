@@ -748,12 +748,10 @@ the object file's name just above."
                                     (list "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
                                           "-B" "." "-S" project-dir))))))
 
-
-
 (defun cide--get-build-type ()
   "Return build type : debug or release"
   (interactive)
-  (let ((args cmake-ide-cmake-args))
+  (let ((args (cide--cmake-args)))
     (let* ((clean (delq nil (mapcar (function (lambda (x) (if (string-match-p "CMAKE_BUILD_TYPE" x) x 'nil))) args))))
       clean)))
 
