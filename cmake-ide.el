@@ -756,7 +756,7 @@ the object file's name just above."
     (when project-dir
       ;; if no project-dir, then get-project-key is called from a non cmake project dir, simply ignore
       (replace-regexp-in-string "[-/= ]" "_"  (concat (expand-file-name project-dir)
-                                                      (string-join (cide--cmake-args) " "))))))
+                                                      (string-join (cide--get-build-type) " "))))))
 
 (defun cide--cmake-args ()
   "Return a list of arguments to pass to CMake when calling it."
